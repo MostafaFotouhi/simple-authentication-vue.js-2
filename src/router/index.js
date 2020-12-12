@@ -41,7 +41,7 @@ const router = new VueRouter({
 // Router Guard
 router.beforeEach((to, from, next) => {
   if (
-    to.meta.requiresLogin &&
+    to.matched.some(record => record.meta.requiresLogin) &&
     JSON.parse(localStorage.getItem("userLogged")) == null
   ) {
     next("/sign-in");
