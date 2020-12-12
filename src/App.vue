@@ -1,32 +1,40 @@
 <template>
-  <div id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
-    </div>
-    <router-view />
-  </div>
+  <router-view />
 </template>
 
+<script>
+export default {
+  beforeCreate() {
+    // add user into localstorage
+    this.$store.getters.addUsers;
+    // read localStorage and add extra information to the state
+    this.$store.getters.checkUsersInLocal;
+    // read localStorage and add userLogin inforamtion
+    this.$store.getters.checkUserloggedInLocal;
+  },
+  methods: {}
+};
+</script>
+
 <style lang="scss">
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
+@font-face {
+  font-family: IranSANS;
+  src: url("./assets/fonts/IRANSansWeb-FaNum.woff2") format("woff2");
 }
-
-#nav {
-  padding: 30px;
-
-  a {
-    font-weight: bold;
-    color: #2c3e50;
-
-    &.router-link-exact-active {
-      color: #42b983;
-    }
-  }
+* {
+  box-sizing: inherit;
+}
+html {
+  font-size: 62.5%;
+  box-sizing: border-box;
+}
+body {
+  height: 100vh;
+  font-family: "IranSANS";
+  direction: rtl;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #42b983;
 }
 </style>
