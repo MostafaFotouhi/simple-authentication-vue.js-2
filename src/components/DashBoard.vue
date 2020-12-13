@@ -117,6 +117,7 @@ export default {
       display: block;
       font-family: "IranSANS";
       background-color: transparent;
+      outline: none;
       cursor: pointer;
     }
     .btn {

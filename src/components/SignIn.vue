@@ -18,7 +18,7 @@
           v-slot="{ errors }"
         >
           <label for="pass">رمز</label>
-          <input type="password" id="pass" v-model="password" />
+          <input type="password" id="pass" v-model="password" autocomplete="on" />
           <span style="color:red">{{ errors[0] }}</span>
         </ValidationProvider>
         <input type="submit" class="btn" @click="signIn" value="ورود">
