@@ -8,7 +8,11 @@
         <td>{{ user.role }}</td>
         <td>{{ user.password }}</td>
         <td>
-          <button @click="deleteField(index)" class="btn" :disabled="isDisabled">
+          <button
+            @click="deleteField(index)"
+            class="btn"
+            :disabled="isDisabled"
+          >
             حذف
           </button>
         </td>
@@ -23,7 +27,7 @@
         </td>
         <td>
           <edit-form-modal v-if="showModal">
-            <form action="#" @submit.prevent="register">
+            <form action="#" @submit.prevent="userRegister">
               <div class="form">
                 <label for="name">نام</label>
                 <input type="text" name="name" v-model="userValues.name" />
@@ -32,11 +36,9 @@
                   type="email"
                   name="email"
                   v-model="userValues.email"
-                  @input="emailIfTrue"
+                  @input="checkUserEmail"
                 />
-                <p class="error" v-show="isEmailExist">
-                  ایمیل تکراری می باشد
-                </p>
+                <span style="color:red" v-if="isEmailExist">{{ text }}</span>
                 <label for="role">نقش</label>
                 <select name="role" v-model="userValues.role">
                   <option value="admin">admin</option>
@@ -49,7 +51,7 @@
                   v-model="userValues.password"
                   autocomplete="on"
                 />
-                <button class="button" @click="register">
+                <button class="button" @click="userRegister">
                   ثبت
                 </button>
                 <button class="button" @click="closeModalBtn">
@@ -81,7 +83,9 @@ export default {
       showModal: false,
 
       // variable for user values in edit form
-      userValues: {}
+      userValues: {},
+
+      text: "",
     };
   },
   mounted() {
@@ -89,14 +93,14 @@ export default {
     this.disableBtnForm();
   },
   computed: {
-    ...mapState(["allUsersList", "userLogged", "users"])
+    ...mapState(["allUsersList", "userLogged", "users"]),
   },
   methods: {
-    ...mapMutations(["addUserToState", "editInState","deleteUserInState"]),
+    ...mapMutations(["addUserToState", "editInState", "deleteUserInState"]),
 
     // get data from state and register to edit form fields
     getDataFromState(data) {
-      const userId = this.allUsersList.find(i => i.id === data);
+      const userId = this.allUsersList.find((i) => i.id === data);
       this.userValues.id = userId.id;
       this.userValues.name = userId.name;
       this.userValues.email = userId.email;
@@ -107,9 +111,11 @@ export default {
     // check email exist in edit form
     checkUserEmail() {
       const users = this.$store.state.allUsersList;
-      const emailUser = users.find(e => e.email === this.userValues.email)
+      const emailUser = users.find((e) => e.email === this.userValues.email);
       if (emailUser) {
         this.isEmailExist = true;
+      } else {
+        this.isEmailExist = false;
       }
     },
     //  access permission to edit form button
@@ -132,7 +138,7 @@ export default {
     },
     // delete user of state
     deleteInState(idx) {
-      this.deleteUserInState(idx)
+      this.deleteUserInState(idx);
     },
     // delete user of localStorege
     deleteInLocal(idx) {
@@ -144,7 +150,7 @@ export default {
     // store index of admin users
     indexRole() {
       var roleIdx = [];
-      let userRole = this.allUsersList.map(r => r.role);
+      let userRole = this.allUsersList.map((r) => r.role);
       userRole.filter((el, index) => {
         if (el === "admin") {
           roleIdx.push(index);
@@ -166,7 +172,7 @@ export default {
     //  edit information in localStorage
     registerInLocal() {
       let localData = JSON.parse(localStorage.getItem("users"));
-      let foundItem = localData.findIndex(x => x.id == this.userValues.id);
+      let foundItem = localData.findIndex((x) => x.id == this.userValues.id);
       localData[foundItem] = this.userValues;
       localStorage.setItem("users", JSON.stringify(localData));
     },
@@ -178,12 +184,20 @@ export default {
     },
 
     // call edit information methods
-    register() {
-      this.registerInLocal();
-      this.registerInState();
-      this.closeModalBtn();
-    }
-  }
+    userRegister() {
+      try {
+        if (this.isEmailExist === true) throw "ایمیل تکراری است";
+        this.registerInLocal();
+        this.registerInState();
+      } catch (error) {
+        this.text = error;
+      } finally {
+        if (this.isEmailExist === false) {
+          this.closeModalBtn();
+        }
+      }
+    },
+  },
 };
 </script>
 
