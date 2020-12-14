@@ -9,21 +9,21 @@ export default new Vuex.Store({
     users: [
       {
         id: 1,
-        name: "مصطفی",
+        name: "mostafa",
         email: "mostafa@gmail.com",
         role: "user",
         password: "12345",
       },
       {
         id: 2,
-        name: "امیر",
+        name: "amir",
         email: "amir@gmail.com",
         role: "admin",
         password: "12345",
       },
       {
         id: 3,
-        name: "علی",
+        name: "ali",
         email: "ali@gmail.com",
         role: "user",
         password: "12345",
