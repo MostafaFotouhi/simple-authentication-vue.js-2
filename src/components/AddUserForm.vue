@@ -78,7 +78,9 @@ export default {
       // initial variable to check email
       isEmailExist: false,
 
+      // text for error in email validation
       text: "",
+
       // store new user data
       newUser: {
         id: null,
@@ -100,9 +102,10 @@ export default {
     isIdDuplicate() {
       this.newUserCopy.id = Math.floor(Math.random() * 100) + 1;
       const users = this.$store.state.allUsersList;
-      const idUsers = users.find((i) => i.id === this.newUserCopy.id);
+      const idUsers = users.some((i) => i.id === this.newUserCopy.id);
+      console.log(idUsers);
       if (idUsers) {
-        this.newUserCopy.id = Math.floor(Math.random() * 100) + 1;
+        this.isIdDuplicate();
       }
     },
 
@@ -139,14 +142,14 @@ export default {
         this.isIdDuplicate();
         this.addDataInLocal();
         this.addUserToState(this.newUserCopy);
+        this.clearForm();
       } catch (error) {
         this.text = error;
       } finally {
         if (this.isEmailExist === false) {
-          this.clearForm();
           this.$nextTick(() => {
-          this.$refs.form.reset();
-        });          
+            this.$refs.form.reset();
+          });
         }
       }
     },
