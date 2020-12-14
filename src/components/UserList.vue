@@ -85,6 +85,7 @@ export default {
       // variable for user values in edit form
       userValues: {},
 
+      // text for error in email validation
       text: "",
     };
   },
@@ -189,12 +190,9 @@ export default {
         if (this.isEmailExist === true) throw "ایمیل تکراری است";
         this.registerInLocal();
         this.registerInState();
+        this.closeModalBtn();
       } catch (error) {
         this.text = error;
-      } finally {
-        if (this.isEmailExist === false) {
-          this.closeModalBtn();
-        }
       }
     },
   },
