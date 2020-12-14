@@ -10,7 +10,8 @@
         >
           <label for="username">نام</label>
           <input type="text" id="name" v-model="name" />
-          <span style="color:red">{{ errors[0] }}</span><br/>
+          <span style="color:red">{{ errors[0] }}</span
+          ><br />
         </ValidationProvider>
         <ValidationProvider
           name="Password"
@@ -18,10 +19,15 @@
           v-slot="{ errors }"
         >
           <label for="pass">رمز</label>
-          <input type="password" id="pass" v-model="password" autocomplete="on" />
+          <input
+            type="password"
+            id="pass"
+            v-model="password"
+            autocomplete="on"
+          />
           <span style="color:red">{{ errors[0] }}</span>
         </ValidationProvider>
-        <input type="submit" class="btn" @click="signIn" value="ورود">
+        <input type="submit" class="btn" @click="signIn" value="ورود" />
       </form>
     </ValidationObserver>
   </div>
@@ -51,13 +57,13 @@ export default {
       const name = users.find((n) => n.name === this.name);
       const pass = users.find((p) => p.password === this.password);
       if (name && pass) {
+        this.getUserlogged();
         this.$router.push("/dashboard/add-user-form");
       } else {
         alert("مقادیر وارد شده اشتباه است");
         this.password = "";
         return false;
       }
-      this.getUserlogged();
     },
   },
 };
