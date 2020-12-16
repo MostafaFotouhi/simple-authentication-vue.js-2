@@ -10,8 +10,8 @@
       <div class="header-box">سلام {{ $store.state.userLogged.name }}</div>
       <div class="content">
         <div class="content-item">
-          <transition name="rout" made="out-in">
-            <router-view></router-view>
+          <transition name="fade-anime" mode="out-in" enter-active-class="animate__animated animate__fadeIn" leave-active-class="animate__animated animate__fadeOut">
+            <router-view/>
           </transition>
         </div>
       </div>
@@ -80,8 +80,12 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+
+@import "https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css";
+
 .dashboard {
   font-family: "IranSANS";
+  position: fixed;
   width: 80rem;
   height: 60rem;
   background-color: #fff;
@@ -126,6 +130,8 @@ export default {
   }
   .content-box {
     flex: 1;
+    position: relative;
+    flex-direction: row;
     height: 100%;
     background-color: #fff;
     .header-box {
@@ -140,31 +146,32 @@ export default {
     }
     .content {
       width: 100%;
+      height: 90%;
       display: flex;
       justify-content: center;
       align-items: center;
-      transition: all 1s;
+      position: relative;
 
       .content-item {
-        margin-top: 5rem;
+        position: fixed;
         width: 50rem;
         height: 40rem;
       }
     }
   }
 }
-.rout-enter-from,
-.rout-leave-to {
-  opacity: 0;
-}
+// .rout-enter-from,
+// .rout-leave-to {
+//   opacity: 0;
+// }
 
-.rout-enter-active,
-.rout-leave-active {
-  transition: all 1s;
-}
+// .rout-enter-active,
+// .rout-leave-active {
+//   transition: all 1s;
+// }
 
-.rout-enter-to,
-.rout-leave-from {
-  opacity: 1;
-}
+// .rout-enter-to,
+// .rout-leave-from {
+//   opacity: 1;
+// }
 </style>

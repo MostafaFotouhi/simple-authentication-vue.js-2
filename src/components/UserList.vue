@@ -1,4 +1,6 @@
 <template>
+<div class="fix">
+
   <table class="list">
     <tbody>
       <tr v-for="(user, index) in allUsersList" :key="index">
@@ -64,6 +66,7 @@
       </tr>
     </tbody>
   </table>
+</div>
 </template>
 
 <script>
@@ -200,6 +203,43 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.fix {
+  position: fixed;
+  font-size: 1.3rem;
+  width: inherit;
+  height: inherit;
+}
+.list {
+  width: 100%;
+  height: 100%;
+  text-align: center;
+  color: #fff;
+  background-color: #42b983;
+
+  thead {
+    font-size: 1.5rem;
+  }
+}
+.list,
+th,
+td {
+  border: 1px solid #fff;
+}
+.list {
+  border-collapse: collapse;
+}
+.btn {
+  font-family: "IranSANS";
+  font-size: 1.2rem;
+  width: 6.5rem;
+  padding: 1rem 0;
+  border: 1px solid #fff;
+  color: #fff;
+  background-color: transparent;
+  cursor: pointer;
+  border-radius: 3px;
+  outline: none;
+}
 .form {
   width: 100%;
   height: 100%;
@@ -231,37 +271,5 @@ export default {
     background-color: #42b983;
     cursor: pointer;
   }
-}
-.list {
-  font-size: 1.2rem;
-  text-align: center;
-  width: 100%;
-  height: 100%;
-  color: #fff;
-  background-color: #42b983;
-
-  thead {
-    font-size: 1.5rem;
-  }
-}
-.list,
-th,
-td {
-  border: 1px solid #fff;
-}
-.list {
-  border-collapse: collapse;
-}
-.btn {
-  font-family: "IranSANS";
-  font-size: 1.2rem;
-  width: 6.5rem;
-  padding: 1rem 0;
-  border: 1px solid #fff;
-  color: #fff;
-  background-color: transparent;
-  cursor: pointer;
-  border-radius: 3px;
-  outline: none;
 }
 </style>

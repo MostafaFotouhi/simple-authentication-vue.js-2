@@ -12,6 +12,7 @@ import {
 import { required, alpha, max, min, email } from "vee-validate/dist/rules";
 import fa from "vee-validate/dist/locale/fa.json";
 // import { from } from "core-js/fn/array";
+import 'animate.css';
 
 localize("fa", { ...fa, names: { Name: "نام" , Password: 'رمز', Email: 'پست الکترونیک', Role: 'نقش'} });
 localeChanged();

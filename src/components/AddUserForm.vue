@@ -1,4 +1,6 @@
 <template>
+<div class="fix">
+
   <ValidationObserver v-slot="{ handleSubmit }" ref="form">
     <form action="#" @submit.prevent="handleSubmit(addNewUser)">
       <div class="form">
@@ -65,6 +67,7 @@
       </div>
     </form>
   </ValidationObserver>
+</div>
 </template>
 
 <script>
@@ -165,6 +168,11 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.fix {
+  position: fixed;
+  width: inherit;
+  height: inherit;
+}
 .form {
   width: 100%;
   height: 100%;
@@ -187,7 +195,8 @@ export default {
   label {
     color: #fff;
     font-size: 1.3rem;
-    margin-bottom: 5rem;
+    display: inline-block;
+    margin-bottom: .5rem;
   }
   .btn {
     color: #fff;
