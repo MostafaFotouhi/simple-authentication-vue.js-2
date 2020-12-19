@@ -1,95 +1,87 @@
 <template>
-<div class="fix">
-
-  <table class="list">
-    <tbody>
-      <tr v-for="(user, index) in allUsersList" :key="index">
-        <td>{{ user.id }}</td>
-        <td>{{ user.name }}</td>
-        <td>{{ user.email }}</td>
-        <td>{{ user.role }}</td>
-        <td>{{ user.password }}</td>
-        <td>
-          <button
-            @click="deleteField(index)"
-            class="btn"
-            :disabled="isDisabled"
-          >
-            حذف
-          </button>
-        </td>
-        <td>
-          <button
-            @click="showModalBtn(user.id)"
-            class="btn"
-            :disabled="isDisabled"
-          >
-            ویرایش
-          </button>
-        </td>
-        <td>
-          <edit-form-modal v-if="showModal">
-            <form action="#" @submit.prevent="userRegister">
-              <div class="form">
-                <label for="name">نام</label>
-                <input type="text" name="name" v-model="userValues.name" />
-                <label for="email">ایمیل</label>
-                <input
-                  type="email"
-                  name="email"
-                  v-model="userValues.email"
-                  @input="checkUserEmail"
-                />
-                <span style="color:red" v-if="isEmailExist">{{ text }}</span>
-                <label for="role">نقش</label>
-                <select name="role" v-model="userValues.role">
-                  <option value="admin">admin</option>
-                  <option value="user">user</option>
-                </select>
-                <label for="pass">رمز</label>
-                <input
-                  type="password"
-                  name="pass"
-                  v-model="userValues.password"
-                  autocomplete="on"
-                />
-                <button class="button" @click="userRegister">
-                  ثبت
-                </button>
-                <button class="button" @click="closeModalBtn">
-                  لغو
-                </button>
-              </div>
-            </form>
-          </edit-form-modal>
-        </td>
-      </tr>
-    </tbody>
-  </table>
-</div>
+  <div class="fix">
+    <table class="list">
+      <tbody>
+        <tr v-for="(user, index) in allUsersList" :key="index">
+          <td>{{ user.id }}</td>
+          <td>{{ user.name }}</td>
+          <td>{{ user.email }}</td>
+          <td>{{ user.role }}</td>
+          <td>{{ user.password }}</td>
+          <td>
+            <button
+              @click="deleteField(index)"
+              class="btn"
+              :disabled="isDisabled"
+            >
+              حذف
+            </button>
+          </td>
+          <td>
+            <button
+              @click="showModalBtn(user.id)"
+              class="btn"
+              :disabled="isDisabled"
+            >
+              ویرایش
+            </button>
+          </td>
+          <td>
+            <edit-form-modal v-if="showModal">
+              <form action="#" @submit.prevent="userRegister">
+                <div class="form">
+                  <label for="name">نام</label>
+                  <input type="text" name="name" v-model="userValues.name" />
+                  <label for="email">ایمیل</label>
+                  <input
+                    type="email"
+                    name="email"
+                    v-model="userValues.email"
+                    @input="checkUserEmail"
+                  />
+                  <span style="color:red" v-if="isEmailExist">{{ text }}</span>
+                  <label for="role">نقش</label>
+                  <select name="role" v-model="userValues.role">
+                    <option value="admin">admin</option>
+                    <option value="user">user</option>
+                  </select>
+                  <label for="pass">رمز</label>
+                  <input
+                    type="password"
+                    name="pass"
+                    v-model="userValues.password"
+                    autocomplete="on"
+                  />
+                  <button class="button" @click="userRegister">
+                    ثبت
+                  </button>
+                  <button class="button" @click="closeModalBtn">
+                    لغو
+                  </button>
+                </div>
+              </form>
+            </edit-form-modal>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
 </template>
 
 <script>
 import EditFormModal from "../components/EditFormModal.vue";
+import { addNewUserData } from "../mixin/addNewUser.js";
 import { mapState, mapMutations } from "vuex";
 export default {
+  mixins: [addNewUserData],
   components: { EditFormModal },
   data() {
     return {
-      // initial variable to check email
-      isEmailExist: false,
-
-      // initial variable to allow form access
-      isDisabled: true,
-
       // modal variable to show or close
       showModal: false,
 
       // variable for user values in edit form
       userValues: {},
-
-      // text for error in email validation
-      text: "",
     };
   },
   mounted() {
@@ -122,6 +114,7 @@ export default {
         this.isEmailExist = false;
       }
     },
+    
     //  access permission to edit form button
     disableBtnForm() {
       const user = this.$store.state.userLogged;

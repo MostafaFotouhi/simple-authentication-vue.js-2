@@ -72,18 +72,11 @@
 
 <script>
 import { mapMutations } from "vuex";
+import {addNewUserData} from "../mixin/addNewUser.js";
 export default {
+  mixins: [addNewUserData],
   data() {
     return {
-      // initial variable to allow form access
-      isDisabled: true,
-
-      // initial variable to check email
-      isEmailExist: false,
-
-      // text for error in email validation
-      text: "",
-
       // store new user data
       newUser: {
         id: null,
